@@ -37,3 +37,11 @@ Its duration was not instrumented; it must not be represented as zero or hidden 
 These are measured/observed milestones, not the earlier estimated allocation. Earlier
 preparatory research was not timed; the full exercise total therefore cannot honestly be
 represented as exactly eight hours or less solely from this build log.
+
+## User-requested launcher addition after v0.1.0
+
+Added `full_run.sh` on a separate feature branch. It bootstraps pinned uv/Python into the
+project, creates the venv, installs the lockfile, runs lint/tests/keyless verification, and
+starts the app. A clean source copy without credentials, venv, or local uv completed setup
+and all 42 tests plus 18 replay cases. Existing review state and environment credentials
+are preserved. CI additionally tests clean Linux bootstrap and package startup.

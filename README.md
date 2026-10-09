@@ -9,7 +9,25 @@ that requires both billing and support evidence. Only Assignment C is implemente
 
 ## Run without an API key
 
-Install [uv](https://docs.astral.sh/uv/getting-started/installation/), then run from the repository:
+On macOS, Linux, or Windows through WSL, run:
+
+```bash
+./full_run.sh
+```
+
+The launcher finds the pinned uv version or installs it under `.runtime/`, obtains Python
+3.12.15, creates `.venv`, installs the locked packages, runs lint/tests/replay verification,
+and starts the app. No manual environment activation or API key is required. Initial setup
+needs Internet and `curl` or `wget`; no sudo, shell-profile change, or environment-file overwrite
+is performed. An existing environment is reused. Checks must pass before the server starts.
+
+Use `./full_run.sh --check-only` to set up and verify without starting a server,
+`./full_run.sh --port 8502` if port 8501 is already occupied, or `--bootstrap` to force
+project-local uv. The launcher covers the native local pipeline; security auditing, container
+recreation, and delivery packaging remain additional CI checks.
+
+If you prefer manual setup, install [uv](https://docs.astral.sh/uv/getting-started/installation/),
+then run from the repository:
 
 ```bash
 uv sync --locked

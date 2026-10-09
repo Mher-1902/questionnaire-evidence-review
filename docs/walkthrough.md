@@ -1,6 +1,6 @@
 # Written walkthrough
 
-Run `uv sync --locked` and `uv run streamlit run app.py`, or `docker compose up --build`.
+Run `./full_run.sh` for automatic setup, checks, and startup, or `docker compose up --build`.
 Start in Saved real responses mode. No API key is needed.
 
 1. Click **Draft pending questions**. Q3 gives weekday support hours, with the existing
