@@ -1,0 +1,14 @@
+{
+  "method": "Manually specified from original passages and domain.md before application outputs; no random generation.",
+  "cases": [
+    {"id":"Q1","answerability":"supported","facts":["Free-plan users cannot export CSV; paid plans can."],"required_passages":["EXPORT-v2:p1"],"historical_passages":["EXPORT-v1:p1"]},
+    {"id":"Q2","answerability":"unknown","facts":["JSON export is undocumented; do not infer yes or no."],"required_passages":[],"owner":"Product reviewer"},
+    {"id":"Q3","answerability":"supported","facts":["Monday to Friday, 09:00 to 17:00 UTC."],"required_passages":["SUPPORT-v1:p1"]},
+    {"id":"Q4","answerability":"supported","facts":["Live chat is not offered."],"required_passages":["SUPPORT-v1:p1"]},
+    {"id":"Q5","answerability":"supported","facts":["Sign in with email and password."],"required_passages":["ACCESS-v1:p1"]},
+    {"id":"Q6","answerability":"supported","facts":["Account owners can invite team members."],"required_passages":["ACCESS-v1:p1"]},
+    {"id":"Q7","answerability":"supported","facts":["Paid subscriptions are billed monthly."],"required_passages":["BILLING-v1:p1"]},
+    {"id":"Q8","answerability":"supported","facts":["Account owners can download billing invoices."],"required_passages":["BILLING-v1:p1"]},
+    {"id":"Q9","answerability":"supported","facts":["Paid subscriptions are billed monthly; email support is Monday to Friday, 09:00 to 17:00 UTC."],"required_passages":["BILLING-v1:p1","SUPPORT-v1:p1"]}
+  ]
+}

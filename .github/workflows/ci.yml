@@ -1,0 +1,54 @@
+name: Verification
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: verification-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    name: Locked install, tests, and security
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        with:
+          version: "0.12.24"
+          enable-cache: false
+      - name: Install locked dependencies
+        run: uv sync --locked
+      - name: Lint and formatting
+        run: |
+          uv run ruff check .
+          uv run ruff format --check .
+      - name: Workflow tests
+        run: uv run pytest --junitxml=reports/test-results.xml
+      - name: Dependency audit
+        run: uv run pip-audit --skip-editable
+      - name: Install verified secret scanner
+        working-directory: ${{ runner.temp }}
+        run: |
+          curl --fail --location --silent --show-error -O https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/gitleaks_8.30.1_linux_x64.tar.gz
+          curl --fail --location --silent --show-error -O https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/gitleaks_8.30.1_checksums.txt
+          sha256sum --check --ignore-missing gitleaks_8.30.1_checksums.txt
+          tar -xzf gitleaks_8.30.1_linux_x64.tar.gz gitleaks
+      - name: Scan Git history for secrets
+        run: '"${{ runner.temp }}/gitleaks" git . --redact=100 --no-banner'
+      - name: Save check results
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: verification-${{ github.sha }}
+          path: reports/test-results.xml
+          retention-days: 7
