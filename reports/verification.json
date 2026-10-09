@@ -1,0 +1,1076 @@
+{
+  "generated_at": "2026-10-09T10:44:11.187858+00:00",
+  "model": "command-a-03-2025",
+  "new_provider_calls": 0,
+  "semantic_review_method": "Coding-assistant source inspection against original passages and authority metadata. This is not human approval or an automatic entailment metric.",
+  "cases": [
+    {
+      "question_id": "Q1",
+      "strategy": "retrieval",
+      "expected": {
+        "id": "Q1",
+        "answerability": "supported",
+        "facts": [
+          "Free-plan users cannot export CSV; paid plans can."
+        ],
+        "required_passages": [
+          "EXPORT-v2:p1"
+        ],
+        "historical_passages": [
+          "EXPORT-v1:p1"
+        ]
+      },
+      "passed": true,
+      "observed": {
+        "answer": "No",
+        "answerability": "supported",
+        "conflict_resolution": "resolved_by_supersession",
+        "citations": [
+          {
+            "passage_id": "EXPORT-v2:p1",
+            "quote": "CSV exports are available on paid plans only. Free-plan users cannot export CSV."
+          }
+        ],
+        "conflicts": [
+          {
+            "passage_ids": [
+              "EXPORT-v1:p1",
+              "EXPORT-v2:p1"
+            ],
+            "reason": "EXPORT-v1 states that CSV exports are available on every plan, while EXPORT-v2 states that CSV exports are only available on paid plans."
+          }
+        ],
+        "note": ""
+      },
+      "recording": "c5b0e032ad6faa85f5343cbf6fde200059e20f76b6c105ef92f40bfe7d6f8428-1791540407706192000.json",
+      "structural_errors": [],
+      "state_match": true,
+      "required_citations_present": true,
+      "retrieval_required_passage_coverage": 1.0,
+      "source_inspection": {
+        "passed": true,
+        "note": "Q1: No is correct in the question context. EXPORT-v2 explicitly replaces v1; quoted restriction supports the answer and both passages are visible."
+      },
+      "owner": "Product reviewer",
+      "recorded_live_elapsed_ms": 4080.739,
+      "replay_elapsed_ms": 3.304,
+      "input_tokens": 1639,
+      "output_tokens": 123,
+      "recorded_usage": {
+        "billed_units": {
+          "input_tokens": 1079,
+          "output_tokens": 120
+        },
+        "tokens": {
+          "input_tokens": 1639,
+          "output_tokens": 123
+        },
+        "cached_tokens": 480
+      }
+    },
+    {
+      "question_id": "Q2",
+      "strategy": "retrieval",
+      "expected": {
+        "id": "Q2",
+        "answerability": "unknown",
+        "facts": [
+          "JSON export is undocumented; do not infer yes or no."
+        ],
+        "required_passages": [],
+        "owner": "Product reviewer"
+      },
+      "passed": true,
+      "observed": {
+        "answer": "",
+        "answerability": "unknown",
+        "conflict_resolution": "none",
+        "citations": [],
+        "conflicts": [],
+        "note": "Insufficient supplied evidence: No information about JSON export availability."
+      },
+      "recording": "3c286bc5063d5bbf119f4fcdcf307cda6b1510e45b33a94d62cf950c4b73e136-1791540418003910000.json",
+      "structural_errors": [],
+      "state_match": true,
+      "required_citations_present": true,
+      "retrieval_required_passage_coverage": null,
+      "source_inspection": {
+        "passed": true,
+        "note": "Q2: Empty answer with explanatory note correctly means insufficient evidence. None of the original documents specifies JSON export; no yes/no capability is invented."
+      },
+      "owner": "Product reviewer",
+      "recorded_live_elapsed_ms": 2477.927,
+      "replay_elapsed_ms": 0.427,
+      "input_tokens": 1569,
+      "output_tokens": 38,
+      "recorded_usage": {
+        "billed_units": {
+          "input_tokens": 1009,
+          "output_tokens": 35
+        },
+        "tokens": {
+          "input_tokens": 1569,
+          "output_tokens": 38
+        },
+        "cached_tokens": 480
+      }
+    },
+    {
+      "question_id": "Q3",
+      "strategy": "retrieval",
+      "expected": {
+        "id": "Q3",
+        "answerability": "supported",
+        "facts": [
+          "Monday to Friday, 09:00 to 17:00 UTC."
+        ],
+        "required_passages": [
+          "SUPPORT-v1:p1"
+        ]
+      },
+      "passed": true,
+      "observed": {
+        "answer": "Email support is available Monday to Friday, 09:00 to 17:00 UTC.",
+        "answerability": "supported",
+        "conflict_resolution": "none",
+        "citations": [
+          {
+            "passage_id": "SUPPORT-v1:p1",
+            "quote": "Email support is available Monday to Friday, 09:00 to 17:00 UTC."
+          }
+        ],
+        "conflicts": [],
+        "note": ""
+      },
+      "recording": "684299ed2e8c458efe4702f0d63d770aae79b2ca892ea0db6822bf321d4bae1e-1791540426694433000.json",
+      "structural_errors": [],
+      "state_match": true,
+      "required_citations_present": true,
+      "retrieval_required_passage_coverage": 1.0,
+      "source_inspection": {
+        "passed": true,
+        "note": "Q3: Weekdays, 09:00-17:00 UTC, match SUPPORT-v1:p1 exactly."
+      },
+      "owner": "Support reviewer",
+      "recorded_live_elapsed_ms": 3745.74,
+      "replay_elapsed_ms": 0.396,
+      "input_tokens": 1585,
+      "output_tokens": 89,
+      "recorded_usage": {
+        "billed_units": {
+          "input_tokens": 1025,
+          "output_tokens": 86
+        },
+        "tokens": {
+          "input_tokens": 1585,
+          "output_tokens": 89
+        },
+        "cached_tokens": 1456
+      }
+    },
+    {
+      "question_id": "Q4",
+      "strategy": "retrieval",
+      "expected": {
+        "id": "Q4",
+        "answerability": "supported",
+        "facts": [
+          "Live chat is not offered."
+        ],
+        "required_passages": [
+          "SUPPORT-v1:p1"
+        ]
+      },
+      "passed": true,
+      "observed": {
+        "answer": "No",
+        "answerability": "supported",
+        "conflict_resolution": "none",
+        "citations": [
+          {
+            "passage_id": "SUPPORT-v1:p1",
+            "quote": "Live chat is not offered."
+          }
+        ],
+        "conflicts": [],
+        "note": ""
+      },
+      "recording": "7f53018daaef9e70860f69b28a7abf935211e71ad97c3b0c94afa661267665d3-1791540436657579000.json",
+      "structural_errors": [],
+      "state_match": true,
+      "required_citations_present": true,
+      "retrieval_required_passage_coverage": 1.0,
+      "source_inspection": {
+        "passed": true,
+        "note": "Q4: No is supported by the explicit statement that live chat is not offered."
+      },
+      "owner": "Support reviewer",
+      "recorded_live_elapsed_ms": 3146.905,
+      "replay_elapsed_ms": 0.365,
+      "input_tokens": 1517,
+      "output_tokens": 79,
+      "recorded_usage": {
+        "billed_units": {
+          "input_tokens": 957,
+          "output_tokens": 76
+        },
+        "tokens": {
+          "input_tokens": 1517,
+          "output_tokens": 79
+        },
+        "cached_tokens": 480
+      }
+    },
+    {
+      "question_id": "Q5",
+      "strategy": "retrieval",
+      "expected": {
+        "id": "Q5",
+        "answerability": "supported",
+        "facts": [
+          "Sign in with email and password."
+        ],
+        "required_passages": [
+          "ACCESS-v1:p1"
+        ]
+      },
+      "passed": true,
+      "observed": {
+        "answer": "Users can sign in with email and password.",
+        "answerability": "supported",
+        "conflict_resolution": "none",
+        "citations": [
+          {
+            "passage_id": "ACCESS-v1:p1",
+            "quote": "Users can sign in with email and password."
+          }
+        ],
+        "conflicts": [],
+        "note": ""
+      },
+      "recording": "a1b3496f43a1bd1353e6d23b96bc860579ad2874499446d60aef3c500283603b-1791540446020939000.json",
+      "structural_errors": [],
+      "state_match": true,
+      "required_citations_present": true,
+      "retrieval_required_passage_coverage": 1.0,
+      "source_inspection": {
+        "passed": true,
+        "note": "Q5: Email and password sign-in matches ACCESS-v1:p1."
+      },
+      "owner": "Product reviewer",
+      "recorded_live_elapsed_ms": 1232.516,
+      "replay_elapsed_ms": 0.354,
+      "input_tokens": 1637,
+      "output_tokens": 61,
+      "recorded_usage": {
+        "billed_units": {
+          "input_tokens": 1077,
+          "output_tokens": 58
+        },
+        "tokens": {
+          "input_tokens": 1637,
+          "output_tokens": 61
+        },
+        "cached_tokens": 480
+      }
+    },
+    {
+      "question_id": "Q6",
+      "strategy": "retrieval",
+      "expected": {
+        "id": "Q6",
+        "answerability": "supported",
+        "facts": [
+          "Account owners can invite team members."
+        ],
+        "required_passages": [
+          "ACCESS-v1:p1"
+        ]
+      },
+      "passed": true,
+      "observed": {
+        "answer": "Account owners can invite team members.",
+        "answerability": "supported",
+        "conflict_resolution": "none",
+        "citations": [
+          {
+            "passage_id": "ACCESS-v1:p1",
+            "quote": "Account owners can invite team members."
+          }
+        ],
+        "conflicts": [],
+        "note": ""
+      },
+      "recording": "bc787dd855969c27b4bc7248eacff16350cbe92ade19bd885021fc94fb2d5032-1791540453464375000.json",
+      "structural_errors": [],
+      "state_match": true,
+      "required_citations_present": true,
+      "retrieval_required_passage_coverage": 1.0,
+      "source_inspection": {
+        "passed": true,
+        "note": "Q6: Account owners can invite team members; directly supported by ACCESS-v1:p1."
+      },
+      "owner": "Product reviewer",
+      "recorded_live_elapsed_ms": 1460.893,
+      "replay_elapsed_ms": 0.333,
+      "input_tokens": 1505,
+      "output_tokens": 85,
+      "recorded_usage": {
+        "billed_units": {
+          "input_tokens": 945,
+          "output_tokens": 82
+        },
+        "tokens": {
+          "input_tokens": 1505,
+          "output_tokens": 85
+        },
+        "cached_tokens": 1392
+      }
+    },
+    {
+      "question_id": "Q7",
+      "strategy": "retrieval",
+      "expected": {
+        "id": "Q7",
+        "answerability": "supported",
+        "facts": [
+          "Paid subscriptions are billed monthly."
+        ],
+        "required_passages": [
+          "BILLING-v1:p1"
+        ]
+      },
+      "passed": true,
+      "observed": {
+        "answer": "Paid subscriptions are billed monthly.",
+        "answerability": "supported",
+        "conflict_resolution": "none",
+        "citations": [
+          {
+            "passage_id": "BILLING-v1:p1",
+            "quote": "Paid subscriptions are billed monthly in USD."
+          }
+        ],
+        "conflicts": [],
+        "note": ""
+      },
+      "recording": "7af1747821dfb615667d1384d99ce7b29f84f083245fd36375058fbad31575e7-1791541102095052000.json",
+      "structural_errors": [],
+      "state_match": true,
+      "required_citations_present": true,
+      "retrieval_required_passage_coverage": 1.0,
+      "source_inspection": {
+        "passed": true,
+        "note": "Q7: Monthly paid-subscription billing matches BILLING-v1:p1."
+      },
+      "owner": "Billing reviewer",
+      "recorded_live_elapsed_ms": 2095.863,
+      "replay_elapsed_ms": 0.424,
+      "input_tokens": 1508,
+      "output_tokens": 87,
+      "recorded_usage": {
+        "billed_units": {
+          "input_tokens": 948,
+          "output_tokens": 84
+        },
+        "tokens": {
+          "input_tokens": 1508,
+          "output_tokens": 87
+        },
+        "cached_tokens": 480
+      }
+    },
+    {
+      "question_id": "Q8",
+      "strategy": "retrieval",
+      "expected": {
+        "id": "Q8",
+        "answerability": "supported",
+        "facts": [
+          "Account owners can download billing invoices."
+        ],
+        "required_passages": [
+          "BILLING-v1:p1"
+        ]
+      },
+      "passed": true,
+      "observed": {
+        "answer": "Account owners can download billing invoices.",
+        "answerability": "supported",
+        "conflict_resolution": "none",
+        "citations": [
+          {
+            "passage_id": "BILLING-v1:p1",
+            "quote": "Account owners can download billing invoices."
+          }
+        ],
+        "conflicts": [],
+        "note": ""
+      },
+      "recording": "8ba5508cd664c2523c6c535a6d137a6874675d673c3dc7b51fda5f8db97ce500-1791540352358639000.json",
+      "structural_errors": [],
+      "state_match": true,
+      "required_citations_present": true,
+      "retrieval_required_passage_coverage": 1.0,
+      "source_inspection": {
+        "passed": true,
+        "note": "Q8: Invoice download by account owners is explicitly stated in BILLING-v1:p1."
+      },
+      "owner": "Billing reviewer",
+      "recorded_live_elapsed_ms": 1357.653,
+      "replay_elapsed_ms": 0.333,
+      "input_tokens": 1508,
+      "output_tokens": 71,
+      "recorded_usage": {
+        "billed_units": {
+          "input_tokens": 948,
+          "output_tokens": 68
+        },
+        "tokens": {
+          "input_tokens": 1508,
+          "output_tokens": 71
+        },
+        "cached_tokens": 480
+      }
+    },
+    {
+      "question_id": "Q9",
+      "strategy": "retrieval",
+      "expected": {
+        "id": "Q9",
+        "answerability": "supported",
+        "facts": [
+          "Paid subscriptions are billed monthly; email support is Monday to Friday, 09:00 to 17:00 UTC."
+        ],
+        "required_passages": [
+          "BILLING-v1:p1",
+          "SUPPORT-v1:p1"
+        ]
+      },
+      "passed": true,
+      "observed": {
+        "answer": "Paid subscriptions are billed monthly, and email support is available Monday to Friday, 09:00 to 17:00 UTC.",
+        "answerability": "supported",
+        "conflict_resolution": "none",
+        "citations": [
+          {
+            "passage_id": "BILLING-v1:p1",
+            "quote": "Paid subscriptions are billed monthly in USD."
+          },
+          {
+            "passage_id": "SUPPORT-v1:p1",
+            "quote": "Email support is available Monday to Friday, 09:00 to 17:00 UTC."
+          }
+        ],
+        "conflicts": [],
+        "note": ""
+      },
+      "recording": "93c17a20d5857fbd3917703a11e7f7a0d914496a5fc06ad94e7edf8e70e4dd0f-1791541202635450000.json",
+      "structural_errors": [],
+      "state_match": true,
+      "required_citations_present": true,
+      "retrieval_required_passage_coverage": 1.0,
+      "source_inspection": {
+        "passed": true,
+        "note": "Q9: Both monthly billing and weekday support hours are correct; two supporting documents are cited."
+      },
+      "owner": "Billing reviewer",
+      "recorded_live_elapsed_ms": 2637.823,
+      "replay_elapsed_ms": 0.329,
+      "input_tokens": 1663,
+      "output_tokens": 121,
+      "recorded_usage": {
+        "billed_units": {
+          "input_tokens": 1103,
+          "output_tokens": 118
+        },
+        "tokens": {
+          "input_tokens": 1663,
+          "output_tokens": 121
+        },
+        "cached_tokens": 480
+      }
+    },
+    {
+      "question_id": "Q1",
+      "strategy": "full_context",
+      "expected": {
+        "id": "Q1",
+        "answerability": "supported",
+        "facts": [
+          "Free-plan users cannot export CSV; paid plans can."
+        ],
+        "required_passages": [
+          "EXPORT-v2:p1"
+        ],
+        "historical_passages": [
+          "EXPORT-v1:p1"
+        ]
+      },
+      "passed": true,
+      "observed": {
+        "answer": "No",
+        "answerability": "supported",
+        "conflict_resolution": "resolved_by_supersession",
+        "citations": [
+          {
+            "passage_id": "EXPORT-v2:p1",
+            "quote": "CSV exports are available on paid plans only. Free-plan users cannot export CSV."
+          }
+        ],
+        "conflicts": [
+          {
+            "passage_ids": [
+              "EXPORT-v1:p1",
+              "EXPORT-v2:p1"
+            ],
+            "reason": "EXPORT-v1:p1 states that CSV exports are available on every plan, while EXPORT-v2:p1 states that CSV exports are available on paid plans only."
+          }
+        ],
+        "note": ""
+      },
+      "recording": "9354c24443f3c6ae48219d7531027f004774874f03d31570fe7a78daad6c6f3d-1791542142661038000.json",
+      "structural_errors": [],
+      "state_match": true,
+      "required_citations_present": true,
+      "retrieval_required_passage_coverage": 1.0,
+      "source_inspection": {
+        "passed": true,
+        "note": "No is correct; EXPORT-v2 explicitly replaces v1. The quoted current restriction supports the answer, and the old disagreement is shown."
+      },
+      "owner": "Product reviewer",
+      "recorded_live_elapsed_ms": 2952.714,
+      "replay_elapsed_ms": 0.197,
+      "input_tokens": 1790,
+      "output_tokens": 129,
+      "recorded_usage": {
+        "billed_units": {
+          "input_tokens": 1230,
+          "output_tokens": 126
+        },
+        "tokens": {
+          "input_tokens": 1790,
+          "output_tokens": 129
+        },
+        "cached_tokens": 480
+      }
+    },
+    {
+      "question_id": "Q2",
+      "strategy": "full_context",
+      "expected": {
+        "id": "Q2",
+        "answerability": "unknown",
+        "facts": [
+          "JSON export is undocumented; do not infer yes or no."
+        ],
+        "required_passages": [],
+        "owner": "Product reviewer"
+      },
+      "passed": true,
+      "observed": {
+        "answer": "The evidence does not mention JSON export.",
+        "answerability": "unknown",
+        "conflict_resolution": "none",
+        "citations": [],
+        "conflicts": [],
+        "note": "Insufficient supplied evidence to determine if JSON export is available."
+      },
+      "recording": "3e2099a66e24dd9f26e6a683ee972f0ad221e74b790fb682152d0fb419d2d807-1791542151829521000.json",
+      "structural_errors": [],
+      "state_match": true,
+      "required_citations_present": true,
+      "retrieval_required_passage_coverage": null,
+      "source_inspection": {
+        "passed": true,
+        "note": "None of the five original sources specifies JSON export. The answer and note correctly state missing evidence without inventing yes or no."
+      },
+      "owner": "Product reviewer",
+      "recorded_live_elapsed_ms": 3269.572,
+      "replay_elapsed_ms": 0.2,
+      "input_tokens": 1787,
+      "output_tokens": 46,
+      "recorded_usage": {
+        "billed_units": {
+          "input_tokens": 1227,
+          "output_tokens": 43
+        },
+        "tokens": {
+          "input_tokens": 1787,
+          "output_tokens": 46
+        },
+        "cached_tokens": 480
+      }
+    },
+    {
+      "question_id": "Q3",
+      "strategy": "full_context",
+      "expected": {
+        "id": "Q3",
+        "answerability": "supported",
+        "facts": [
+          "Monday to Friday, 09:00 to 17:00 UTC."
+        ],
+        "required_passages": [
+          "SUPPORT-v1:p1"
+        ]
+      },
+      "passed": true,
+      "observed": {
+        "answer": "Email support is available Monday to Friday, 09:00 to 17:00 UTC.",
+        "answerability": "supported",
+        "conflict_resolution": "none",
+        "citations": [
+          {
+            "passage_id": "SUPPORT-v1:p1",
+            "quote": "Email support is available Monday to Friday, 09:00 to 17:00 UTC."
+          }
+        ],
+        "conflicts": [],
+        "note": ""
+      },
+      "recording": "cfe0ad76645c86aa85c2883ae3c445feda1fcf9d3e3dd3fb7b1078c0b6a3d6ab-1791542161309872000.json",
+      "structural_errors": [],
+      "state_match": true,
+      "required_citations_present": true,
+      "retrieval_required_passage_coverage": 1.0,
+      "source_inspection": {
+        "passed": true,
+        "note": "Weekday support hours and timezone match SUPPORT-v1:p1."
+      },
+      "owner": "Support reviewer",
+      "recorded_live_elapsed_ms": 1661.769,
+      "replay_elapsed_ms": 0.213,
+      "input_tokens": 1788,
+      "output_tokens": 89,
+      "recorded_usage": {
+        "billed_units": {
+          "input_tokens": 1228,
+          "output_tokens": 86
+        },
+        "tokens": {
+          "input_tokens": 1788,
+          "output_tokens": 89
+        },
+        "cached_tokens": 1728
+      }
+    },
+    {
+      "question_id": "Q4",
+      "strategy": "full_context",
+      "expected": {
+        "id": "Q4",
+        "answerability": "supported",
+        "facts": [
+          "Live chat is not offered."
+        ],
+        "required_passages": [
+          "SUPPORT-v1:p1"
+        ]
+      },
+      "passed": true,
+      "observed": {
+        "answer": "No",
+        "answerability": "supported",
+        "conflict_resolution": "none",
+        "citations": [
+          {
+            "passage_id": "SUPPORT-v1:p1",
+            "quote": "Live chat is not offered."
+          }
+        ],
+        "conflicts": [],
+        "note": ""
+      },
+      "recording": "ccc0cfd55c9c68b032f1d6902087b85c5a886076735d418aca6a83998b714040-1791542169183780000.json",
+      "structural_errors": [],
+      "state_match": true,
+      "required_citations_present": true,
+      "retrieval_required_passage_coverage": 1.0,
+      "source_inspection": {
+        "passed": true,
+        "note": "No is supported by the explicit statement that live chat is not offered."
+      },
+      "owner": "Support reviewer",
+      "recorded_live_elapsed_ms": 1836.299,
+      "replay_elapsed_ms": 0.203,
+      "input_tokens": 1787,
+      "output_tokens": 51,
+      "recorded_usage": {
+        "billed_units": {
+          "input_tokens": 1227,
+          "output_tokens": 48
+        },
+        "tokens": {
+          "input_tokens": 1787,
+          "output_tokens": 51
+        },
+        "cached_tokens": 480
+      }
+    },
+    {
+      "question_id": "Q5",
+      "strategy": "full_context",
+      "expected": {
+        "id": "Q5",
+        "answerability": "supported",
+        "facts": [
+          "Sign in with email and password."
+        ],
+        "required_passages": [
+          "ACCESS-v1:p1"
+        ]
+      },
+      "passed": true,
+      "observed": {
+        "answer": "Users can sign in with email and password.",
+        "answerability": "supported",
+        "conflict_resolution": "none",
+        "citations": [
+          {
+            "passage_id": "ACCESS-v1:p1",
+            "quote": "Users can sign in with email and password."
+          }
+        ],
+        "conflicts": [],
+        "note": ""
+      },
+      "recording": "5b9ce45849b7e42db19b0b238dd58ef07ee1a402f29a45a9291f7d564252b1e4-1791542177235575000.json",
+      "structural_errors": [],
+      "state_match": true,
+      "required_citations_present": true,
+      "retrieval_required_passage_coverage": 1.0,
+      "source_inspection": {
+        "passed": true,
+        "note": "Email/password sign-in matches ACCESS-v1:p1."
+      },
+      "owner": "Product reviewer",
+      "recorded_live_elapsed_ms": 7083.02,
+      "replay_elapsed_ms": 0.2,
+      "input_tokens": 1788,
+      "output_tokens": 61,
+      "recorded_usage": {
+        "billed_units": {
+          "input_tokens": 1228,
+          "output_tokens": 58
+        },
+        "tokens": {
+          "input_tokens": 1788,
+          "output_tokens": 61
+        },
+        "cached_tokens": 480
+      }
+    },
+    {
+      "question_id": "Q6",
+      "strategy": "full_context",
+      "expected": {
+        "id": "Q6",
+        "answerability": "supported",
+        "facts": [
+          "Account owners can invite team members."
+        ],
+        "required_passages": [
+          "ACCESS-v1:p1"
+        ]
+      },
+      "passed": true,
+      "observed": {
+        "answer": "Account owners can invite team members.",
+        "answerability": "supported",
+        "conflict_resolution": "none",
+        "citations": [
+          {
+            "passage_id": "ACCESS-v1:p1",
+            "quote": "Account owners can invite team members."
+          }
+        ],
+        "conflicts": [],
+        "note": ""
+      },
+      "recording": "e003a3b6185268e0b50e9d746506e4372d941c4558fd303b2b15ece85e01107a-1791542437218521000.json",
+      "structural_errors": [],
+      "state_match": true,
+      "required_citations_present": true,
+      "retrieval_required_passage_coverage": 1.0,
+      "source_inspection": {
+        "passed": true,
+        "note": "Account-owner invitations match ACCESS-v1:p1."
+      },
+      "owner": "Product reviewer",
+      "recorded_live_elapsed_ms": 1592.258,
+      "replay_elapsed_ms": 0.2,
+      "input_tokens": 1788,
+      "output_tokens": 57,
+      "recorded_usage": {
+        "billed_units": {
+          "input_tokens": 1228,
+          "output_tokens": 54
+        },
+        "tokens": {
+          "input_tokens": 1788,
+          "output_tokens": 57
+        },
+        "cached_tokens": 480
+      }
+    },
+    {
+      "question_id": "Q7",
+      "strategy": "full_context",
+      "expected": {
+        "id": "Q7",
+        "answerability": "supported",
+        "facts": [
+          "Paid subscriptions are billed monthly."
+        ],
+        "required_passages": [
+          "BILLING-v1:p1"
+        ]
+      },
+      "passed": true,
+      "observed": {
+        "answer": "Paid subscriptions are billed monthly in USD.",
+        "answerability": "supported",
+        "conflict_resolution": "none",
+        "citations": [
+          {
+            "passage_id": "BILLING-v1:p1",
+            "quote": "Paid subscriptions are billed monthly in USD."
+          }
+        ],
+        "conflicts": [],
+        "note": ""
+      },
+      "recording": "fa093d231f91a3ded36d719f8b76d18d309f0b6b2ab614f0c2b85da2e9db1cfd-1791542445022919000.json",
+      "structural_errors": [],
+      "state_match": true,
+      "required_citations_present": true,
+      "retrieval_required_passage_coverage": 1.0,
+      "source_inspection": {
+        "passed": true,
+        "note": "Monthly paid-subscription billing and USD currency match BILLING-v1:p1."
+      },
+      "owner": "Billing reviewer",
+      "recorded_live_elapsed_ms": 1982.69,
+      "replay_elapsed_ms": 0.202,
+      "input_tokens": 1788,
+      "output_tokens": 73,
+      "recorded_usage": {
+        "billed_units": {
+          "input_tokens": 1228,
+          "output_tokens": 70
+        },
+        "tokens": {
+          "input_tokens": 1788,
+          "output_tokens": 73
+        },
+        "cached_tokens": 480
+      }
+    },
+    {
+      "question_id": "Q8",
+      "strategy": "full_context",
+      "expected": {
+        "id": "Q8",
+        "answerability": "supported",
+        "facts": [
+          "Account owners can download billing invoices."
+        ],
+        "required_passages": [
+          "BILLING-v1:p1"
+        ]
+      },
+      "passed": true,
+      "observed": {
+        "answer": "Account owners can download billing invoices.",
+        "answerability": "supported",
+        "conflict_resolution": "none",
+        "citations": [
+          {
+            "passage_id": "BILLING-v1:p1",
+            "quote": "Account owners can download billing invoices."
+          }
+        ],
+        "conflicts": [],
+        "note": ""
+      },
+      "recording": "83b77c2198e04125d4458582d6b46e568781619940eb0d16e14800c961a6a178-1791542453220793000.json",
+      "structural_errors": [],
+      "state_match": true,
+      "required_citations_present": true,
+      "retrieval_required_passage_coverage": 1.0,
+      "source_inspection": {
+        "passed": true,
+        "note": "Invoice download by account owners is explicitly supported by BILLING-v1:p1."
+      },
+      "owner": "Billing reviewer",
+      "recorded_live_elapsed_ms": 1954.457,
+      "replay_elapsed_ms": 0.218,
+      "input_tokens": 1788,
+      "output_tokens": 59,
+      "recorded_usage": {
+        "billed_units": {
+          "input_tokens": 1228,
+          "output_tokens": 56
+        },
+        "tokens": {
+          "input_tokens": 1788,
+          "output_tokens": 59
+        },
+        "cached_tokens": 480
+      }
+    },
+    {
+      "question_id": "Q9",
+      "strategy": "full_context",
+      "expected": {
+        "id": "Q9",
+        "answerability": "supported",
+        "facts": [
+          "Paid subscriptions are billed monthly; email support is Monday to Friday, 09:00 to 17:00 UTC."
+        ],
+        "required_passages": [
+          "BILLING-v1:p1",
+          "SUPPORT-v1:p1"
+        ]
+      },
+      "passed": true,
+      "observed": {
+        "answer": "Paid subscriptions are billed monthly, and email support is available Monday to Friday, 09:00 to 17:00 UTC.",
+        "answerability": "supported",
+        "conflict_resolution": "none",
+        "citations": [
+          {
+            "passage_id": "BILLING-v1:p1",
+            "quote": "Paid subscriptions are billed monthly in USD."
+          },
+          {
+            "passage_id": "SUPPORT-v1:p1",
+            "quote": "Email support is available Monday to Friday, 09:00 to 17:00 UTC."
+          }
+        ],
+        "conflicts": [],
+        "note": ""
+      },
+      "recording": "4d412b49c5e7eb115c0a9d63c040aa725e500cb40e165cc05d8e0d97a5bd1ff9-1791542461389212000.json",
+      "structural_errors": [],
+      "state_match": true,
+      "required_citations_present": true,
+      "retrieval_required_passage_coverage": 1.0,
+      "source_inspection": {
+        "passed": true,
+        "note": "Both monthly billing and weekday support hours are correct, with both supporting documents cited."
+      },
+      "owner": "Billing reviewer",
+      "recorded_live_elapsed_ms": 4425.244,
+      "replay_elapsed_ms": 0.208,
+      "input_tokens": 1796,
+      "output_tokens": 121,
+      "recorded_usage": {
+        "billed_units": {
+          "input_tokens": 1236,
+          "output_tokens": 118
+        },
+        "tokens": {
+          "input_tokens": 1796,
+          "output_tokens": 121
+        },
+        "cached_tokens": 1728
+      }
+    }
+  ],
+  "demonstrations": [
+    {
+      "check": "supported-citations",
+      "expected": "Q3 is supported with its existing support passage",
+      "passed": true
+    },
+    {
+      "check": "unknown-route",
+      "expected": "Q2 remains unknown and routes to Product reviewer",
+      "passed": true
+    },
+    {
+      "check": "explicit-replacement",
+      "expected": "Q1 cites the explicit replacement and preserves historical disagreement",
+      "passed": true
+    },
+    {
+      "check": "approved-correction-reuse",
+      "expected": "No. Only paid-plan users can export CSV; free-plan users cannot.",
+      "observed": "No. Only paid-plan users can export CSV; free-plan users cannot.",
+      "new_provider_calls": 0,
+      "elapsed_ms": 0.425,
+      "passed": true
+    },
+    {
+      "check": "restart-and-version-invalidation",
+      "expected": "Approval survives restart; referenced version change blocks reuse",
+      "observed": {
+        "persisted": true,
+        "stale": true,
+        "changes": [
+          {
+            "after": {
+              "date": "2026-08-01",
+              "id": "EXPORT-v2",
+              "passages": [
+                {
+                  "id": "EXPORT-v2:p1",
+                  "text": "CSV exports are available on paid plans only. Free-plan users cannot export CSV."
+                }
+              ],
+              "status": "current",
+              "supersedes": "EXPORT-v1",
+              "version": 3
+            },
+            "before": {
+              "date": "2026-08-01",
+              "id": "EXPORT-v2",
+              "passages": [
+                {
+                  "id": "EXPORT-v2:p1",
+                  "text": "CSV exports are available on paid plans only. Free-plan users cannot export CSV."
+                }
+              ],
+              "status": "current",
+              "supersedes": "EXPORT-v1",
+              "version": 2
+            },
+            "document_id": "EXPORT-v2",
+            "kind": "version"
+          }
+        ]
+      },
+      "passed": true
+    }
+  ],
+  "limitations": [
+    "Nine examples do not prove general accuracy or latency.",
+    "Source inspection is AI-assisted; actual approval requires human review.",
+    "Provider caching and request timing confound latency comparisons.",
+    "Workflow approval acknowledgements below are scripted simulations."
+  ],
+  "comparison": {
+    "retrieval": {
+      "n": 9,
+      "successful_cases": 9,
+      "mean_input_tokens": 1570.111111111111,
+      "live_latency_median_ms": 2477.927,
+      "live_latency_range_ms": [
+        1232.516,
+        4080.739
+      ]
+    },
+    "full_context": {
+      "n": 9,
+      "successful_cases": 9,
+      "mean_input_tokens": 1788.888888888889,
+      "live_latency_median_ms": 1982.69,
+      "live_latency_range_ms": [
+        1592.258,
+        7083.02
+      ]
+    }
+  }
+}

@@ -158,12 +158,20 @@ class Conflict(Contract):
 
 
 class Answer(Contract):
-    answer: str = Field(min_length=1, max_length=4000)
+    answer: str = Field(max_length=4000)
     answerability: Literal["supported", "unknown", "conflicted"]
     conflict_resolution: Literal["none", "resolved_by_supersession", "unresolved"]
     citations: list[Citation] = Field(max_length=20)
     conflicts: list[Conflict] = Field(max_length=20)
     note: str = Field(max_length=2000)
+
+    @model_validator(mode="after")
+    def meaningful_response(self):
+        if self.answerability == "supported" and not self.answer.strip():
+            raise ValueError("Supported answer cannot be empty")
+        if not self.answer.strip() and not self.note.strip():
+            raise ValueError("Unresolved response must explain the missing evidence")
+        return self
 
 
 def validate_evidence(answer: Answer, data: Dataset):
@@ -171,6 +179,8 @@ def validate_evidence(answer: Answer, data: Dataset):
     problems = []
     passages = data.passage_map()
     authority = Authority(data)
+    if answer.answerability == "supported":
+        problems.extend(authority.issues())
     if answer.answerability == "supported" and not answer.citations:
         problems.append("Supported answer requires supporting citations")
     if answer.answerability == "supported" and answer.conflict_resolution == "unresolved":

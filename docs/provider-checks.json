@@ -1,0 +1,104 @@
+{
+  "method": "Actual persisted live failures; no credentials or raw error bodies.",
+  "provider_attempts_so_far": 34,
+  "failures": [
+    {
+      "question_id": "Q1",
+      "time": "2026-10-09T09:46:37.629711+00:00",
+      "error_code": "request_rejected",
+      "error": "Provider rejected the request.",
+      "provider_attempts": 1,
+      "usage": null,
+      "http_status": null
+    },
+    {
+      "question_id": "Q1",
+      "time": "2026-10-09T09:39:41.091288+00:00",
+      "error_code": "invalid_model_output",
+      "error": "Model output failed the application contract; no answer invented.",
+      "provider_attempts": 1,
+      "usage": {
+        "billed_units": {
+          "input_tokens": 693,
+          "output_tokens": 584
+        },
+        "cached_tokens": 16,
+        "tokens": {
+          "input_tokens": 938,
+          "output_tokens": 588
+        }
+      },
+      "http_status": null
+    },
+    {
+      "question_id": "Q2",
+      "time": "2026-10-09T09:55:04.497791+00:00",
+      "error_code": "invalid_model_output",
+      "error": "Model output failed the application contract; no answer invented.",
+      "provider_attempts": 1,
+      "usage": {
+        "billed_units": {
+          "input_tokens": 827,
+          "output_tokens": 35
+        },
+        "cached_tokens": 480,
+        "tokens": {
+          "input_tokens": 1577,
+          "output_tokens": 38
+        }
+      },
+      "http_status": 200
+    },
+    {
+      "question_id": "Q3",
+      "time": "2026-10-09T09:55:13.795671+00:00",
+      "error_code": "request_rejected",
+      "error": "Provider HTTP 422: No valid response generated. Try updating messages",
+      "provider_attempts": 1,
+      "usage": null,
+      "http_status": 422
+    },
+    {
+      "question_id": "Q6",
+      "time": "2026-10-09T10:36:31.262010+00:00",
+      "error_code": "request_rejected",
+      "error": "Provider HTTP 422: No valid response generated. Try updating messages",
+      "provider_attempts": 1,
+      "usage": null,
+      "http_status": 422
+    },
+    {
+      "question_id": "Q7",
+      "time": "2026-10-09T10:07:41.603705+00:00",
+      "error_code": "request_rejected",
+      "error": "Provider HTTP 422: No valid response generated. Try updating messages",
+      "provider_attempts": 1,
+      "usage": null,
+      "http_status": 422
+    },
+    {
+      "question_id": "Q8",
+      "time": "2026-10-09T10:03:08.555307+00:00",
+      "error_code": "request_rejected",
+      "error": "Provider HTTP 422: No valid response generated. Try updating messages",
+      "provider_attempts": 1,
+      "usage": null,
+      "http_status": 422
+    },
+    {
+      "question_id": "Q8",
+      "time": "2026-10-09T09:59:10.411169+00:00",
+      "error_code": "request_rejected",
+      "error": "Provider HTTP 422: No valid response generated. Try updating messages",
+      "provider_attempts": 1,
+      "usage": null,
+      "http_status": 422
+    }
+  ],
+  "corrections": [
+    "Command A+ initially returned reasoning outside JSON and was rejected.",
+    "Command A omitted conflict references; prompt consistency checks were strengthened.",
+    "Unknown may legitimately have an empty answer with an explanatory note; supported empty answers remain invalid.",
+    "Native schema decoding produced intermittent HTTP 422; JSON-object output with local validation was selected. Further provider generation failures remained visible, and explicit manual captures completed the fixtures."
+  ]
+}

@@ -152,6 +152,7 @@ class Store:
             self._event(conn, question_key(question) if question else None, kind, payload)
 
     def save_draft(self, question, answer: Answer, dataset_id, origin, run_id=None):
+        answer = Answer.model_validate(answer.model_dump())
         errors = validate_evidence(answer, self.dataset(dataset_id))
         draft_id = str(uuid4())
         with self.connection() as conn:
@@ -213,7 +214,15 @@ class Store:
             for c in answer.citations
         )
 
-    def approve(self, draft_id, reviewer, *, semantic_confirmed, changes_confirmed=False):
+    def approve(
+        self,
+        draft_id,
+        reviewer,
+        *,
+        semantic_confirmed,
+        changes_confirmed=False,
+        expected_dataset_id=None,
+    ):
         if not semantic_confirmed:
             raise ValueError("Human semantic review must confirm the complete answer")
         if not reviewer.strip() or len(reviewer) > 128:
@@ -229,6 +238,8 @@ class Store:
             if latest["id"] != draft_id:
                 raise ValueError("Draft changed: inspect the latest revision before approval")
             dataset_id, current = self._dataset(conn)
+            if expected_dataset_id and expected_dataset_id != dataset_id:
+                raise ValueError("Sources changed while reviewing; reload and inspect them")
             answer = Answer.model_validate_json(draft["payload"])
             problems = validate_evidence(answer, current)
             if answer.answerability != "supported" or problems:
@@ -244,8 +255,16 @@ class Store:
                     "SELECT payload FROM datasets WHERE id=?", (draft["dataset_id"],)
                 ).fetchone()["payload"]
             )
+            dependencies = {
+                old_source.passage_map()[c.passage_id][0].id
+                for c in answer.citations
+                if c.passage_id in old_source.passage_map()
+            }
             relevant_changes = [
-                c for c in source_changes(old_source, current) if c["kind"] != "date"
+                c
+                for c in source_changes(old_source, current)
+                if c["kind"] in {"added", "removed", "text", "authority"}
+                or (c["kind"] == "version" and c["document_id"] in dependencies)
             ]
             if (relevant_changes or (previous and previous["stale"])) and not changes_confirmed:
                 raise ValueError("Inspect and acknowledge the source changes before reapproval")
@@ -345,6 +364,11 @@ class Store:
             if recent >= per_minute:
                 raise ValueError("Local rate limit: wait before another provider attempt")
             conn.execute("INSERT INTO attempts VALUES(?,?)", (str(uuid4()), time.time()))
+
+    def require_review(self, question, reason):
+        with self.connection() as conn:
+            conn.execute("UPDATE approvals SET stale=1 WHERE qkey=?", (question_key(question),))
+            self._event(conn, question_key(question), "human_review_required", {"reason": reason})
 
     def attempt_count(self):
         with self.connection() as conn:

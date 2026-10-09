@@ -1,0 +1,20 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["answer", "answerability", "conflict_resolution", "citations", "conflicts", "note"],
+  "properties": {
+    "answer": {"type": "string"},
+    "answerability": {"type": "string", "enum": ["supported", "unknown", "conflicted"]},
+    "conflict_resolution": {"type": "string", "enum": ["none", "resolved_by_supersession", "unresolved"]},
+    "citations": {"type": "array", "items": {
+      "type": "object", "additionalProperties": false, "required": ["passage_id", "quote"],
+      "properties": {"passage_id": {"type": "string"}, "quote": {"type": "string"}}
+    }},
+    "conflicts": {"type": "array", "items": {
+      "type": "object", "additionalProperties": false, "required": ["passage_ids", "reason"],
+      "properties": {"passage_ids": {"type": "array", "items": {"type": "string"}},
+                     "reason": {"type": "string"}}
+    }},
+    "note": {"type": "string"}
+  }
+}
