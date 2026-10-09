@@ -45,3 +45,6 @@ project, creates the venv, installs the lockfile, runs lint/tests/keyless verifi
 starts the app. A clean source copy without credentials, venv, or local uv completed setup
 and all 42 tests plus 18 replay cases. Existing review state and environment credentials
 are preserved. CI additionally tests clean Linux bootstrap and package startup.
+The extracted package exposed a missing lint exclusion: without Git metadata, Ruff scanned
+downloaded dependencies under `.runtime`. Explicit exclusions were added and verified outside
+the repository; no vendor files were reformatted or modified.
