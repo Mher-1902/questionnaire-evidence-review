@@ -63,7 +63,9 @@ def retrieve(data: Dataset, question: Question, strategy="retrieval", top_k=3):
         "included_passages": [p["id"] for d in documents for p in d["passages"]],
         "authority_expansion": sorted(
             document_ids - {all_passages[r["passage_id"]][0].id for r in ranked}
-        ),
+        )
+        if strategy == "retrieval" and ranked
+        else [],
         "fallback": fallback,
         "elapsed_ms": round((time.perf_counter() - started) * 1000, 3),
     }

@@ -34,6 +34,8 @@ jobs:
           uv run ruff format --check .
       - name: Workflow tests
         run: uv run pytest --junitxml=reports/test-results.xml
+      - name: Keyless real-response verification
+        run: uv run python scripts/verify.py
       - name: Dependency audit
         run: uv run pip-audit --skip-editable
       - name: Install verified secret scanner

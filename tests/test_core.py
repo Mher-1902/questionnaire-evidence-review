@@ -230,3 +230,49 @@ def test_persisted_budget(store):
     store.reserve_attempt(limit=1)
     with pytest.raises(ValueError, match="budget"):
         Store(store.path).reserve_attempt(limit=1)
+
+
+def test_unknown_can_have_no_answer_with_an_explanation():
+    answer = Answer(
+        answer="",
+        answerability="unknown",
+        conflict_resolution="none",
+        citations=[],
+        conflicts=[],
+        note="Insufficient supplied evidence.",
+    )
+    assert answer.answerability == "unknown"
+    with pytest.raises(ValidationError):
+        Answer(
+            answer="",
+            answerability="supported",
+            conflict_resolution="none",
+            citations=[],
+            conflicts=[],
+            note="",
+        )
+
+
+def test_approval_source_snapshot_race_is_blocked(store, raw, data, supported):
+    draft = save(store, data, supported)
+    rendered_dataset = store.snapshot()[0]
+    raw["documents"][1]["version"] += 1
+    store.import_dataset(Dataset.model_validate(raw))
+    with pytest.raises(ValueError, match="Sources changed while reviewing"):
+        store.approve(
+            draft,
+            "Reviewer",
+            semantic_confirmed=True,
+            changes_confirmed=True,
+            expected_dataset_id=rendered_dataset,
+        )
+
+
+def test_clearing_conflict_fields_cannot_hide_bad_authority(store, raw, data, supported):
+    raw["documents"][1]["supersedes"] = None
+    changed = Dataset.model_validate(raw)
+    store.import_dataset(changed)
+    edited = supported.model_copy(update={"conflicts": [], "conflict_resolution": "none"})
+    draft = store.save_draft(data.question("Q1"), edited, store.snapshot()[0], "human-edit")
+    with pytest.raises(ValueError, match="Approval blocked"):
+        store.approve(draft, "Reviewer", semantic_confirmed=True, changes_confirmed=True)
