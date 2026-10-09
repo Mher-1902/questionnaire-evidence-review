@@ -9,7 +9,7 @@ Its duration was not instrumented; it must not be represented as zero or hidden 
 
 | Activity | Start UTC | End UTC | Notes |
 | --- | --- | --- | --- |
-| Instrumented build | 09:20:52 | in progress | Includes setup, data, implementation, model calls, verification, Git, and documentation. |
+| Instrumented build through verified main checkpoint | 09:20:52 | 14:28:59 | 5 h 8 min 7 s; setup, data, implementation, model calls, verification, Git, and documentation. Final handoff publication follows this checkpoint. |
 
 ## Recorded milestones
 
@@ -25,6 +25,14 @@ Its duration was not instrumented; it must not be represented as zero or hidden 
   checks were still pending. Completion time will be recorded after those checks.
 - PR #4's first container run built the image and passed replay, but an early health probe
   encountered a connection reset. Bounded readiness retries were corrected before merging.
+- PR #4 passed validation and actual container recreation checks after the fix and was merged.
+- Main run 37943987430 passed validation, container checks, and delivery; the extracted source
+  package also passed all 18 replay cases and five scripted demonstrations locally with zero API calls.
+- 35 real provider attempts were made in the shared local database: 34 implementation/preflight
+  attempts plus the separately requested Command A+ pilot. Eight failures remain documented.
+- Implementation and initial main delivery were complete at 14:28:59 UTC (17:28:59 Europe/Riga).
+  The final documentation PR and CI publication add a few minutes; their timestamps remain
+  available in Git and GitHub Actions. No history or laptop clock was altered.
 
 These are measured/observed milestones, not the earlier estimated allocation. Earlier
 preparatory research was not timed; the full exercise total therefore cannot honestly be
