@@ -1,0 +1,145 @@
+{
+  "scope": "One real Q1 pilot on the experimental branch; not a general model benchmark.",
+  "model": "command-a-plus-05-2026",
+  "command": "uv run python scripts/capture_live.py --question Q1 --model command-a-plus-05-2026",
+  "question": "Q1",
+  "recording": "19330ebdd44450add25727f9fefe621f0e6cb42aa0e0f419218312234ee79f9a-1791544307235099000.json",
+  "observed": {
+    "answer": "No, free-plan users cannot export CSV.",
+    "answerability": "supported",
+    "conflict_resolution": "none",
+    "citations": [
+      {
+        "passage_id": "EXPORT-v2:p1",
+        "quote": "CSV exports are available on paid plans only. Free-plan users cannot export CSV."
+      }
+    ],
+    "conflicts": [],
+    "note": "Based on current EXPORT-v2 policy, CSV exports are restricted to paid plans."
+  },
+  "primary_application_model": "command-a-03-2025",
+  "historical_references_in_output": [],
+  "replay_inspection_metadata": {
+    "strategy": "retrieval",
+    "top_k": 3,
+    "ranked_hits": [
+      {
+        "passage_id": "EXPORT-v2:p1",
+        "score": -2.76505101652683
+      },
+      {
+        "passage_id": "EXPORT-v1:p1",
+        "score": -1.2495081523631744
+      },
+      {
+        "passage_id": "ACCESS-v1:p1",
+        "score": -0.32833177928360296
+      }
+    ],
+    "included_passages": [
+      "ACCESS-v1:p1",
+      "EXPORT-v1:p1",
+      "EXPORT-v2:p1"
+    ],
+    "authority_expansion": [],
+    "fallback": null,
+    "elapsed_ms": 0.589,
+    "prompt_version": "261e9dc93f29e0e1ade1f6958c7a2e22d05cc4a4e4059680ffedb444f57adc55",
+    "schema_version": "1ed800e67f47a2c6b858314353b8fe1bf74ba64db47d6ea4e8d28b2efa3e9927",
+    "request_fingerprint": "19330ebdd44450add25727f9fefe621f0e6cb42aa0e0f419218312234ee79f9a",
+    "model_id": "command-a-plus-05-2026",
+    "settings": {
+      "model_id": "command-a-plus-05-2026",
+      "temperature": 0.0,
+      "max_tokens": 1000,
+      "thinking": "disabled",
+      "output_format": "json_object",
+      "default_mode": "replay",
+      "default_strategy": "retrieval",
+      "top_k": 3,
+      "deadline_seconds": 30.0,
+      "attempt_budget": 50,
+      "attempts_per_minute": 10,
+      "max_retries": 2
+    },
+    "origin": "replay",
+    "provider_attempts": 0,
+    "new_provider_usage": {
+      "input_tokens": 0,
+      "output_tokens": 0
+    },
+    "recording": "19330ebdd44450add25727f9fefe621f0e6cb42aa0e0f419218312234ee79f9a-1791544307235099000.json",
+    "recorded_usage": {
+      "billed_units": {
+        "input_tokens": 981,
+        "output_tokens": 76
+      },
+      "tokens": {
+        "input_tokens": 1042,
+        "output_tokens": 79
+      },
+      "cached_tokens": 16
+    },
+    "recorded_elapsed_ms": 1340.237
+  },
+  "capture_metadata": {
+    "strategy": "retrieval",
+    "top_k": 3,
+    "ranked_hits": [
+      {
+        "passage_id": "EXPORT-v2:p1",
+        "score": -2.76505101652683
+      },
+      {
+        "passage_id": "EXPORT-v1:p1",
+        "score": -1.2495081523631744
+      },
+      {
+        "passage_id": "ACCESS-v1:p1",
+        "score": -0.32833177928360296
+      }
+    ],
+    "included_passages": [
+      "ACCESS-v1:p1",
+      "EXPORT-v1:p1",
+      "EXPORT-v2:p1"
+    ],
+    "authority_expansion": [],
+    "fallback": null,
+    "elapsed_ms": 1340.237,
+    "prompt_version": "261e9dc93f29e0e1ade1f6958c7a2e22d05cc4a4e4059680ffedb444f57adc55",
+    "schema_version": "1ed800e67f47a2c6b858314353b8fe1bf74ba64db47d6ea4e8d28b2efa3e9927",
+    "request_fingerprint": "19330ebdd44450add25727f9fefe621f0e6cb42aa0e0f419218312234ee79f9a",
+    "model_id": "command-a-plus-05-2026",
+    "settings": {
+      "model_id": "command-a-plus-05-2026",
+      "temperature": 0.0,
+      "max_tokens": 1000,
+      "thinking": "disabled",
+      "output_format": "json_object",
+      "default_mode": "replay",
+      "default_strategy": "retrieval",
+      "top_k": 3,
+      "deadline_seconds": 30.0,
+      "attempt_budget": 50,
+      "attempts_per_minute": 10,
+      "max_retries": 2
+    },
+    "origin": "live",
+    "provider_attempts": 1,
+    "new_provider_usage": {
+      "billed_units": {
+        "input_tokens": 981,
+        "output_tokens": 76
+      },
+      "tokens": {
+        "input_tokens": 1042,
+        "output_tokens": 79
+      },
+      "cached_tokens": 16
+    },
+    "http_status": 200,
+    "recording": "19330ebdd44450add25727f9fefe621f0e6cb42aa0e0f419218312234ee79f9a-1791544307235099000.json"
+  },
+  "historical_disagreement_reported": false
+}
