@@ -81,11 +81,11 @@ jobs:
         run: |
           docker volume create review-state
           docker run --detach --name review-probe --publish 127.0.0.1:8501:8501 --mount source=review-state,target=/app/.runtime review-demo:${{ github.sha }}
-          curl --fail --retry 15 --retry-connrefused --retry-delay 2 http://127.0.0.1:8501/_stcore/health
+          curl --fail --silent --show-error --retry 15 --retry-all-errors --retry-delay 2 --max-time 3 http://127.0.0.1:8501/_stcore/health
           docker exec review-probe .venv/bin/python scripts/container_probe.py approve > reports/container-approval.json
           docker rm --force review-probe
           docker run --detach --name review-probe --publish 127.0.0.1:8501:8501 --mount source=review-state,target=/app/.runtime review-demo:${{ github.sha }}
-          curl --fail --retry 15 --retry-connrefused --retry-delay 2 http://127.0.0.1:8501/_stcore/health
+          curl --fail --silent --show-error --retry 15 --retry-all-errors --retry-delay 2 --max-time 3 http://127.0.0.1:8501/_stcore/health
           docker exec review-probe .venv/bin/python scripts/container_probe.py reuse > reports/container-reuse.json
           docker inspect --format '{{.Image}}' review-probe > reports/container-image.txt
       - name: Container logs and cleanup

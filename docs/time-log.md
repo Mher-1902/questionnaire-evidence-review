@@ -23,6 +23,8 @@ Its duration was not instrumented; it must not be represented as zero or hidden 
 - Local interface inspected and 42 tests passed, including keyless UI review/edit/reuse.
 - At 13:58:07 UTC, instrumented wall-clock work was 4 hours 37 minutes. Container and delivery
   checks were still pending. Completion time will be recorded after those checks.
+- PR #4's first container run built the image and passed replay, but an early health probe
+  encountered a connection reset. Bounded readiness retries were corrected before merging.
 
 These are measured/observed milestones, not the earlier estimated allocation. Earlier
 preparatory research was not timed; the full exercise total therefore cannot honestly be
