@@ -54,3 +54,84 @@ jobs:
           name: verification-${{ github.sha }}
           path: reports/test-results.xml
           retention-days: 7
+
+  container:
+    name: Container replay and durable state
+    needs: checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Build pinned image with a fake build-context credential
+        env:
+          BUILD_CANARY: FAKE-BUILD-CREDENTIAL-${{ github.sha }}
+        run: |
+          printf 'MODEL_API_KEY=%s\n' "$BUILD_CANARY" > .env
+          docker build --tag review-demo:${{ github.sha }} .
+          docker run --rm --entrypoint .venv/bin/python review-demo:${{ github.sha }} -c "from pathlib import Path; assert not Path('/app/.env').exists(); print('Build-context credential excluded')"
+      - name: Verify replay without credentials inside image
+        run: |
+          mkdir -p reports
+          docker run --rm --entrypoint .venv/bin/python review-demo:${{ github.sha }} scripts/verify.py > reports/container-replay.json
+      - name: Check health and approval persistence across recreation
+        run: |
+          docker volume create review-state
+          docker run --detach --name review-probe --publish 127.0.0.1:8501:8501 --mount source=review-state,target=/app/.runtime review-demo:${{ github.sha }}
+          curl --fail --silent --show-error --retry 15 --retry-all-errors --retry-delay 2 --max-time 3 http://127.0.0.1:8501/_stcore/health
+          docker exec review-probe .venv/bin/python scripts/container_probe.py approve > reports/container-approval.json
+          docker rm --force review-probe
+          docker run --detach --name review-probe --publish 127.0.0.1:8501:8501 --mount source=review-state,target=/app/.runtime review-demo:${{ github.sha }}
+          curl --fail --silent --show-error --retry 15 --retry-all-errors --retry-delay 2 --max-time 3 http://127.0.0.1:8501/_stcore/health
+          docker exec review-probe .venv/bin/python scripts/container_probe.py reuse > reports/container-reuse.json
+          docker inspect --format '{{.Image}}' review-probe > reports/container-image.txt
+      - name: Container logs and cleanup
+        if: always()
+        run: |
+          mkdir -p reports
+          docker logs review-probe > reports/container.log 2>&1 || true
+          docker rm --force review-probe || true
+          docker volume rm review-state || true
+      - name: Save container verification
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: container-verification-${{ github.sha }}
+          path: reports/
+          retention-days: 7
+
+  delivery:
+    name: Deliver verified local demo
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: [checks, container]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        with:
+          version: "0.12.24"
+          enable-cache: false
+      - name: Reproduce and package from passing main
+        run: |
+          uv sync --locked
+          uv run python scripts/verify.py
+          uv run python scripts/package_demo.py
+          mkdir -p "$RUNNER_TEMP/delivery-smoke"
+          tar -xzf dist/review-demo-*.tar.gz -C "$RUNNER_TEMP/delivery-smoke"
+          cd "$RUNNER_TEMP/delivery-smoke/review-demo"
+          uv sync --locked
+          uv run python scripts/verify.py
+      - name: Upload runnable source/container package
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: review-demo-${{ github.sha }}
+          path: dist/
+          retention-days: 7

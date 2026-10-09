@@ -1,0 +1,13 @@
+services:
+  review:
+    build: .
+    ports:
+      - "127.0.0.1:8501:8501"
+    environment:
+      APP_STATE_DIR: /app/.runtime
+      MODEL_API_KEY: ${MODEL_API_KEY:-}
+    volumes:
+      - review-state:/app/.runtime
+    restart: unless-stopped
+volumes:
+  review-state:
