@@ -59,6 +59,10 @@ human approval. The interface still requires the person reviewing an answer to c
 
 ## Reproduce and replay
 
+`./full_run.sh` automates the native setup, checks, and app startup. It bootstraps pinned uv
+locally if needed, without changing shell profiles or copying credentials. Its `--check-only`
+mode is tested from a clean environment and used to smoke-test the delivery package.
+
 ```bash
 uv sync --locked
 uv run pytest

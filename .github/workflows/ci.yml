@@ -30,6 +30,7 @@ jobs:
         run: uv sync --locked
       - name: Lint and formatting
         run: |
+          bash -n full_run.sh
           uv run ruff check .
           uv run ruff format --check .
       - name: Workflow tests
@@ -54,6 +55,23 @@ jobs:
           name: verification-${{ github.sha }}
           path: reports/test-results.xml
           retention-days: 7
+
+  launcher:
+    name: Clean one-command bootstrap
+    needs: checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Bootstrap Python and the full local pipeline
+        env:
+          MODEL_API_KEY: ""
+          UV_MANAGED_PYTHON: "true"
+        run: ./full_run.sh --bootstrap --check-only
 
   container:
     name: Container replay and durable state
@@ -106,7 +124,7 @@ jobs:
   delivery:
     name: Deliver verified local demo
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs: [checks, container]
+    needs: [checks, container, launcher]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -127,8 +145,7 @@ jobs:
           mkdir -p "$RUNNER_TEMP/delivery-smoke"
           tar -xzf dist/review-demo-*.tar.gz -C "$RUNNER_TEMP/delivery-smoke"
           cd "$RUNNER_TEMP/delivery-smoke/review-demo"
-          uv sync --locked
-          uv run python scripts/verify.py
+          ./full_run.sh --check-only
       - name: Upload runnable source/container package
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:

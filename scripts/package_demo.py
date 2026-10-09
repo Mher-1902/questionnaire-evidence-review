@@ -20,6 +20,7 @@ ALLOWED_DIRS = {
     ".github",
 }
 ALLOWED_FILES = {
+    "full_run.sh",
     "app.py",
     "app-config.toml",
     "pyproject.toml",
