@@ -21,6 +21,12 @@ Start in Saved real responses mode. No API key is needed.
    problem even though text is unchanged; clearing model conflict fields cannot bypass it.
 8. Inspect the uncited-conflict scenario. Newly added evidence invalidates approvals and
    appears in the change view, including evidence not originally cited.
+9. If a model misclassifies a disagreement, edit **Evidence decision**, **Conflict decision**,
+   the conflict passages, and the explanation together. Save a new revision. Explicit
+   replacement metadata is still required for a resolved disagreement; semantic confirmation
+   is still required for approval. Earlier model and reviewer revisions remain in history.
+10. Before generating a question, enter a **Review note** and click **Leave unresolved with note**.
+    The unresolved queue and count update immediately and survive restart; this does not call a model.
 
 `uv run python scripts/verify.py` reproduces the five required checks in an isolated database.
 Its scripted approval acknowledgement is a simulation. Source inspection is AI-assisted;

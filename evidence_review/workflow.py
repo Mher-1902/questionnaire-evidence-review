@@ -79,6 +79,10 @@ class Workflow:
         if not draft:
             return "pending"
         answer = Answer.model_validate_json(draft["payload"])
+        # An invalid original reference is an error, not a later source change.
+        # Validate the immutable generation snapshot before checking freshness.
+        if validate_evidence(answer, self.store.dataset(draft["dataset_id"])):
+            return "error"
         if not self.store.draft_fresh(draft):
             return "needs_review"
         if validate_evidence(answer, self.store.snapshot()[1]):
@@ -96,18 +100,31 @@ class Workflow:
         }
 
     def leave_unresolved(self, question, note):
+        if not note.strip():
+            raise ValueError("Explain what evidence or clarification is needed")
+        note = note[:2000]
+        dataset_id, data = self.store.snapshot()
         draft = self.store.latest_draft(question)
         if draft:
             answer = Answer.model_validate_json(draft["payload"])
-            answer = answer.model_copy(update={"answerability": "unknown", "note": note[:2000]})
-            self.store.save_draft(question, answer, self.store.snapshot()[0], "human-review")
-        self.store.require_review(question, note[:2000])
+            answer = answer.model_copy(update={"answerability": "unknown", "note": note})
+        else:
+            answer = Answer(
+                answer="",
+                answerability="unknown",
+                conflict_resolution="none",
+                citations=[],
+                conflicts=[],
+                note=note,
+            )
+        self.store.save_draft(question, answer, dataset_id, "human-review")
+        self.store.require_review(question, note)
         self.store.event(
             question,
             "review_note",
             {
-                "note": note[:2000],
-                "owner": self.store.snapshot()[1].owners[question.topic],
+                "note": note,
+                "owner": data.owners[question.topic],
                 "question_key": question_key(question),
             },
         )

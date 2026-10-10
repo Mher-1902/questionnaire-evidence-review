@@ -93,6 +93,12 @@ class Provider:
                     "replay_mismatch", "Recording does not match this request.", trace
                 )
             raw = saved["response"]
+            if not isinstance(raw, dict):
+                raise ProviderError(
+                    "invalid_provider_response",
+                    "Provider returned an invalid JSON envelope.",
+                    trace,
+                )
             trace |= {
                 "recording": target.name,
                 "recorded_usage": raw.get("usage"),
@@ -134,12 +140,25 @@ class Provider:
             raise ProviderError(
                 "incomplete", "Provider response did not complete; draft rejected.", trace
             )
-        text = "".join(
-            part.get("text", "")
-            for part in raw.get("message", {}).get("content", [])
-            if part.get("type") == "text"
-        )
-        return text, trace
+        message = raw.get("message")
+        content = message.get("content") if isinstance(message, dict) else None
+        if (
+            not isinstance(content, list)
+            or not content
+            or any(
+                not isinstance(part, dict)
+                or part.get("type") != "text"
+                or not isinstance(part.get("text"), str)
+                or not part["text"].strip()
+                for part in content
+            )
+        ):
+            raise ProviderError(
+                "invalid_provider_response",
+                "Provider returned invalid content for a text-only draft; no answer invented.",
+                trace,
+            )
+        return "".join(part["text"] for part in content), trace
 
     async def _request(self, request, trace):
         started = time.monotonic()
