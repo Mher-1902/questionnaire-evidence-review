@@ -2,6 +2,13 @@
 
 ## Tools and models
 
+The submission's concise [LLM usage note](../docs/llm-usage.md) lists Codex, Claude Code,
+Perplexity, Gemini, and the Cohere runtime/experiment, their roles, generated components,
+a representative instruction, and a reproduced correction. Claude Code, Perplexity, and
+Gemini use is reported by the candidate for external planning/research; exact model versions
+and session settings were not recorded. Codex implementation and debugging are recorded in
+this repository's workflow. These external assistants are not application dependencies.
+
 Development used the Codex coding assistant with shell/file tools, official-documentation
 browsing, and Codex app PR attachment. Earlier planning used a read-only research council;
 implementation was performed by the primary assistant. Exact coding-model/desktop build
