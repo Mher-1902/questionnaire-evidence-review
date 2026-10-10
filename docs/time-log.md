@@ -90,3 +90,18 @@ manifest links the producing run. Those later minutes are not included in the 9 
 These fixes and publication are additional work after independent inspection. Neither
 the uninstrumented intervals nor this follow-up is hidden inside the original eight-hour
 allowance. The full exercise total remains unestablished.
+
+## Candidate-requested submission documentation
+
+On 10 October, the candidate requested an inventory of the seven submission deliverables
+and an LLM usage note naming additional planning/research tools. The observed interval
+06:08:52–06:12:46 UTC was 3 min 54 s through local documentation checks. Added a submission
+map and a dedicated usage note, indexed it in the AI configuration, and marked unrecorded
+external model/tool versions explicitly. Codex implementation is credited separately from
+the candidate-reported Claude Code, Perplexity, and Gemini planning/research roles.
+
+Local checks verified completed manifest references, preserved supplied seeds, nine expected
+question cases, and the five original reference cases. Ruff lint/format and diff checks passed.
+No real provider requests were made. PR/CI publication follows this measured checkpoint;
+its endpoints are available in Git/Actions and the final package manifest. This is additional
+submission work, not a revision of the original measured build interval.

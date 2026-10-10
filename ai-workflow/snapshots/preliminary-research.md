@@ -1,5 +1,10 @@
 # Preliminary research configuration
 
+The candidate also reports Claude Code for architecture/project structure, Perplexity for
+research, and Gemini for brainstorming with lengthy context. Their external session settings
+and exact model/tool versions were not recorded or exported. The roles are documented in
+`docs/llm-usage.md`; no missing prompts, custom settings, or chat logs are reconstructed.
+
 Earlier user-authorized planning used three read-only research/review roles: company_fit,
 delivery_fit, and role_fit. Their work informed assignment selection, eight-hour scope,
 and the importance of independent evidence checks. They did not implement the application.

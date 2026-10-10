@@ -7,6 +7,18 @@ The supplied fictional rules and original seeds remain unchanged under
 `client-ai-starter-pack/tasks/evidence/`. The working questionnaire adds one question
 that requires both billing and support evidence. Only Assignment C is implemented.
 
+## Submission materials
+
+| Requirement | Included material |
+| --- | --- |
+| Git repository, solution, dependencies, small sample and replay files | This repository, `evidence_review/`, `pyproject.toml`, `uv.lock`, `fixtures/`, and sanitized real responses under `replays/`. Credentials and runtime state are excluded. |
+| Dataset and starter material, generation method, assumptions, five checked reference cases | Unchanged inputs under `client-ai-starter-pack/tasks/evidence/`; [fixture notes](fixtures/README.md), `scripts/make_fixtures.py`, [expected results](fixtures/expected.json), the supplied `expected-seed-results.json`, and [observed checks](reports/verification.md). |
+| README | This file covers setup, keyless replay, architecture, model settings, evidence assumptions, limitations, and the linked [actual time record](docs/time-log.md). Untimed preparation and additional follow-up work are disclosed. |
+| Brief presentation | [Written walkthrough](docs/walkthrough.md). The brief permits this instead of a recording or slides. |
+| LLM usage note | [Tools, models, generated components, representative instruction, and correction](docs/llm-usage.md). |
+| AI configuration | Completed [manifest](ai-workflow/manifest.json), [configuration notes](ai-workflow/README.md), `AGENTS.md`, prompts/settings, referenced scripts, relevant snapshots/versions, and sanitized `.env.example`. Unused and non-exportable components are identified. |
+| Check results | [Expected-versus-observed report](reports/verification.md), [structured results](reports/verification.json), [provider failures](docs/provider-checks.json), and [inspection fixes](docs/inspection-follow-up.md). All five minimum demonstrations pass; prior provider failures remain documented. |
+
 ## Run without an API key
 
 On macOS, Linux, or Windows through WSL, run:
