@@ -80,8 +80,7 @@ def test_mistaken_conflict_can_be_corrected_approved_and_reused(monkeypatch, tmp
     dataset_id, data = store.snapshot()
     question = data.question("Q1")
     mistaken = supported.model_copy(
-        deep=True,
-        update={"answerability": "conflicted", "conflict_resolution": "unresolved"}
+        deep=True, update={"answerability": "conflicted", "conflict_resolution": "unresolved"}
     )
     mistaken.conflicts[0].passage_ids = ["EXPORT-v1:p1", "SUPPORT-v1:p1"]
     first = store.save_draft(question, mistaken, dataset_id, "test-fixture")
