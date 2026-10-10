@@ -7,6 +7,7 @@ from pydantic import ValidationError
 from evidence_review.domain import Answer, Authority, Dataset, load_dataset, validate_evidence
 from evidence_review.retrieval import retrieve
 from evidence_review.storage import Store
+from evidence_review.workflow import Workflow
 
 
 def save(store, data, supported):
@@ -87,6 +88,51 @@ def test_unknown_is_not_approved(store, data):
     with pytest.raises(ValueError, match="Unresolved"):
         approve(store, draft)
     assert store.reusable(data.question("Q2")) is None
+
+
+def test_note_before_generation_persists_unresolved_state(store, data):
+    question = data.question("Q2")
+    Workflow(store, None).leave_unresolved(question, "Ask the product reviewer about JSON export.")
+    reopened = Store(store.path)
+    flow = Workflow(reopened, None)
+    assert flow.status(question) == "unresolved"
+    assert flow.counts()["unresolved"] == 1
+    draft = reopened.latest_draft(question)
+    answer = Answer.model_validate_json(draft["payload"])
+    assert answer.note == "Ask the product reviewer about JSON export."
+    assert draft["origin"] == "human-review"
+    assert reopened.attempt_count() == 0
+    with pytest.raises(ValueError, match="Unresolved"):
+        approve(reopened, draft["id"])
+
+
+def test_invalid_reference_remains_error_after_reload(store, data, supported):
+    supported.citations[0].passage_id = "DOES-NOT-EXIST"
+
+    class InvalidReferenceProvider:
+        def generate(self, *args, **kwargs):
+            return supported.model_dump_json(), {"origin": "simulation"}
+
+    assert Workflow(store, InvalidReferenceProvider()).ask("Q1")["status"] == "error"
+    reopened = Store(store.path)
+    flow = Workflow(reopened, None)
+    assert flow.status(data.question("Q1")) == "error"
+    assert flow.counts()["errors"] == 1
+    assert flow.counts()["unresolved"] == 0
+    assert json.loads(reopened.latest_draft(data.question("Q1"))["errors"]) == [
+        "Missing passage: DOES-NOT-EXIST"
+    ]
+
+
+def test_valid_reference_removed_later_requires_review(store, data, raw, supported):
+    save(store, data, supported)
+    raw["documents"] = [d for d in raw["documents"] if not d["id"].startswith("EXPORT-")]
+    store.import_dataset(Dataset.model_validate(raw))
+    reopened = Store(store.path)
+    flow = Workflow(reopened, None)
+    assert flow.status(data.question("Q1")) == "needs_review"
+    assert flow.counts()["errors"] == 0
+    assert flow.counts()["unresolved"] == 1
 
 
 def test_approval_exact_revision_and_restart(store, data, supported):

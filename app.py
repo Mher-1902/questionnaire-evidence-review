@@ -11,6 +11,7 @@ from evidence_review.domain import (
     Answer,
     Authority,
     Citation,
+    Conflict,
     load_dataset,
     source_changes,
     validate_evidence,
@@ -203,15 +204,51 @@ if selected_id:
                     )
                     for passage_id in selected_citations
                 }
+                conflict_decisions = ["none", "resolved_by_supersession", "unresolved"]
+                resolution = st.selectbox(
+                    "Conflict decision",
+                    conflict_decisions,
+                    index=conflict_decisions.index(answer.conflict_resolution),
+                    help="Only an explicit supersedes relationship can resolve a disagreement.",
+                )
+                st.caption(
+                    "Keep historical evidence visible when resolving a disagreement. "
+                    "To remove a mistaken conflict, clear its passages and explanation."
+                )
+                entries = list(answer.conflicts)
+                if len(entries) < 20:
+                    entries.append(None)
+                edited_conflicts = []
+                for index, conflict in enumerate(entries, start=1):
+                    with st.expander("Conflict " + str(index), expanded=conflict is not None):
+                        refs = st.multiselect(
+                            "Conflict passages " + str(index),
+                            list(passage_map),
+                            default=[p for p in conflict.passage_ids if p in passage_map]
+                            if conflict
+                            else [],
+                        )
+                        reason = st.text_area(
+                            "Conflict explanation " + str(index),
+                            value=conflict.reason if conflict else "",
+                            max_chars=2000,
+                        )
+                        edited_conflicts.append((refs, reason))
                 if st.form_submit_button("Save edited draft"):
                     try:
                         updated = answer.model_copy(
                             update={
                                 "answer": edited,
                                 "answerability": answerability,
+                                "conflict_resolution": resolution,
                                 "citations": [
                                     Citation(passage_id=p, quote=quotes[p])
                                     for p in selected_citations
+                                ],
+                                "conflicts": [
+                                    Conflict(passage_ids=refs, reason=reason)
+                                    for refs, reason in edited_conflicts
+                                    if refs or reason.strip()
                                 ],
                             }
                         )
@@ -219,7 +256,7 @@ if selected_id:
                         st.rerun()
                     except ValueError:
                         st.error(
-                            "Check answer wording and evidence quotes. "
+                            "Check wording, quotes, and conflict evidence (at least two passages). "
                             "Unknown answers need an explanation."
                         )
             reviewer = st.text_input("Local reviewer label", value="Local reviewer", max_chars=128)

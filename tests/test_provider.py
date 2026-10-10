@@ -242,3 +242,47 @@ def test_secret_echo_success_is_rejected_before_recording(store, tmp_path, suppo
     assert result["metadata"]["error_code"] == "secret_echo"
     assert not list((tmp_path / "replays").glob("*.json"))
     assert canary not in json.dumps(store.runs())
+
+
+@pytest.mark.parametrize(
+    "message",
+    [
+        None,
+        [],
+        "invalid",
+        {},
+        {"content": None},
+        {"content": "invalid"},
+        {"content": {}},
+        {"content": []},
+        {"content": [None]},
+        {"content": ["invalid"]},
+        {"content": [123]},
+        {"content": [{}]},
+        {"content": [{"type": "text", "text": None}]},
+        {"content": [{"type": "text", "text": 123}]},
+        {"content": [{"type": "text", "text": ""}]},
+        {"content": [{"type": "tool_call", "text": "unsupported"}]},
+    ],
+)
+def test_malformed_content_is_safe_and_batch_continues(store, data, supported, tmp_path, message):
+    calls = []
+
+    def handler(request):
+        calls.append(request)
+        raw = {"finish_reason": "COMPLETE", "message": message}
+        return httpx.Response(200, json=raw if len(calls) == 1 else envelope(supported))
+
+    provider = Provider(
+        Settings(api_key=SecretStr("dummy")), store, tmp_path, httpx.MockTransport(handler)
+    )
+    flow = Workflow(store, provider)
+    results = [flow.ask(q, mode="live") for q in ["Q1", "Q2"]]
+    assert results[0]["status"] == "error"
+    assert results[0]["metadata"]["error_code"] == "invalid_provider_response"
+    assert results[1]["status"] == "draft"
+    assert len(calls) == 2
+    assert store.latest_draft(data.question("Q1")) is None
+    replay = flow.ask("Q1", mode="replay")
+    assert replay["metadata"]["error_code"] == "invalid_provider_response"
+    assert len(calls) == 2
