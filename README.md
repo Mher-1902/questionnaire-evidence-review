@@ -194,6 +194,7 @@ build-context credential, and approval persistence across container recreation.
 
 After passing main checks, delivery packages a tracked-file allowlist and verifies replay
 from the extracted package. Artifacts are named with their commit SHA and retained seven days.
+The CI-produced `delivery-manifest.json` identifies the source commit and producing CI run.
 The private repository remains the durable submission. This is automated local package
 delivery; cloud deployment is not claimed.
 

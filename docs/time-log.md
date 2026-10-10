@@ -48,3 +48,45 @@ are preserved. CI additionally tests clean Linux bootstrap and package startup.
 The extracted package exposed a missing lint exclusion: without Git metadata, Ruff scanned
 downloaded dependencies under `.runtime`. Explicit exclusions were added and verified outside
 the repository; no vendor files were reformatted or modified.
+
+## Reconstructed later publication interval
+
+Git and GitHub Actions supply dated endpoints for the work after the original measured
+checkpoint. These are elapsed wall-clock spans, including possible idle time and CI waits;
+they do not establish continuously active engineering hours.
+
+| Activity | Start UTC | End UTC | Elapsed and evidence |
+| --- | --- | --- | --- |
+| Final documentation, launcher, archive fix, and passing main delivery | 2026-10-09 14:28:59 | 2026-10-09 15:29:51 | 1 h 0 min 52 s from the recorded checkpoint to successful run 37951938687 on d63f4a3. Commits bef0b49, dbe7592, and 37c844a and their merges occurred within this interval. |
+
+The known 9 October implementation/publication window is therefore 09:20:52–15:29:51 UTC,
+6 h 8 min 59 s elapsed. Untimed earlier preparation remains additional and unknown.
+This is not evidence that the complete exercise consumed eight hours or less.
+
+## Additional inspection follow-up on 10 October
+
+The first recorded timestamp for this follow-up was 05:48:43 UTC; initial report reading
+before that timestamp was not separately timed. The endpoint below is an actual observed
+checkpoint, not an estimate or a reconstructed start time.
+
+| Activity | Start UTC | End UTC | Elapsed and evidence |
+| --- | --- | --- | --- |
+| Reproductions, four fixes, regression verification, PR #8, main delivery, and handoff preparation | 2026-10-10 05:48:43 | 2026-10-10 05:58:00 | 9 min 17 s observed wall-clock span. Main b0ddccf passed all four jobs in run 38029175559 at 05:57:33 UTC. Documentation publication follows this checkpoint. |
+
+All four findings were reproduced before correction. The final local check at this point
+passed 63 tests, 18 recorded-response cases, and all five required demonstrations, with
+zero new real provider calls. Sixteen provider-envelope regressions use simulated HTTP
+responses; scripted approval acknowledgements remain simulations, not human peer reviews.
+The isolated browser check loaded the saved Q1 response and displayed the conflict editor;
+AppTest verified the full correction/approval/reuse interactions. The disposable server
+was stopped and the existing local review database was not changed.
+
+A formatting issue introduced by the last test edit was corrected in a separate commit
+before opening PR #8. CI passed at its reviewed head before merge. No commit timestamps
+or laptop clock were changed. The final handoff commit and its publishing CI run add
+time after 05:58:00; their actual endpoints are available in Git/Actions and the delivered
+manifest links the producing run. Those later minutes are not included in the 9 min 17 s.
+
+These fixes and publication are additional work after independent inspection. Neither
+the uninstrumented intervals nor this follow-up is hidden inside the original eight-hour
+allowance. The full exercise total remains unestablished.
