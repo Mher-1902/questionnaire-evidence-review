@@ -207,11 +207,12 @@ build-context credential, and approval persistence across container recreation.
 After passing main checks, delivery packages a tracked-file allowlist and verifies replay
 from the extracted package. Artifacts are named with their commit SHA and retained seven days.
 The CI-produced `delivery-manifest.json` identifies the source commit and producing CI run.
-The private repository remains the durable submission. This is automated local package
+The public repository remains the durable submission. This is automated local package
 delivery; cloud deployment is not claimed.
 
-GitHub returned HTTP 403 for private branch protection on the current account. Merges are
-manually gated on successful CI and the reviewed head SHA; the repository remains private.
+While the repository was private, GitHub returned HTTP 403 for branch protection on the
+current account. Merges are manually gated on successful CI and the reviewed head SHA.
+The repository was made public at the candidate's request on 10 October 2026.
 
 ## Limits and handoff
 
@@ -228,5 +229,6 @@ vector services, Databricks, and AWS deployment are not implemented.
 
 See [security checks](docs/security.md), [AI usage](ai-workflow/README.md), and
 [actual work time](docs/time-log.md). Earlier preparation was not instrumented and is reported
-separately; it is not represented as zero. Arrange reviewer access to this private repository
-before sending the submission. No recruiter messages are sent by the application.
+separately; it is not represented as zero. Reviewers can access the
+[public repository](https://github.com/Mher-1902/questionnaire-evidence-review) directly.
+No recruiter messages are sent by the application.
