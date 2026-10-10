@@ -1,6 +1,8 @@
 # Submission handoff
 
-Private repository: https://github.com/Mher-1902/questionnaire-evidence-review
+Public repository: https://github.com/Mher-1902/questionnaire-evidence-review
+
+AI usage note: https://github.com/Mher-1902/questionnaire-evidence-review/blob/main/docs/llm-usage.md
 
 Final runtime: Cohere Command A (`command-a-03-2025`). The separate Command A+ pilot is on
 `experiment/cohere-command-a-plus` and unmerged draft PR #3. The final main branch contains
@@ -30,7 +32,7 @@ commits; a prior checkpoint is not presented as the final archive's verification
 Start with `./full_run.sh`: it sets up a project-local Python environment, installs locked
 dependencies, runs the checks, and starts the app. Saved real responses need no API key.
 The localhost address is accessible only on the machine running the application; there is
-no hosted deployment. The private repository is durable; CI artifacts expire after seven days.
+no hosted deployment. The public repository is durable; CI artifacts expire after seven days.
 
 The work log records measured build intervals and untimed preparation. Follow-up fixes on
 10 October are additional work after inspection; do not describe the full exercise as
@@ -40,17 +42,17 @@ The source inspection is AI-assisted. Scripted acknowledgements are simulations;
 answers yourself and approve through the local workspace. These examples do not prove general
 accuracy, authenticated production operation, or load capacity.
 
-Before sending the submission, obtain the reviewer's GitHub identity and arrange access to
-the private repository. No invitation or recruiter message has been sent automatically.
-If access is inconvenient, the sanitized delivery package can be supplied through an agreed
-channel. It includes setup instructions and replay, and does not need the candidate's key.
+The repository was made public on 10 October 2026 at the candidate's explicit request.
+Reviewers can read the source and submission documents directly. The sanitized delivery
+package can also be supplied through an agreed channel; it includes setup instructions and
+replay and does not need the candidate's key. No recruiter message has been sent automatically.
 
-Suggested message for the candidate to send after access is arranged:
+Suggested message for the candidate to send:
 
 > Hello Anastasiia, I've completed Assignment C, the Questionnaire Evidence & Review Workspace.
 > The repository includes setup instructions, saved real Cohere responses for keyless replay,
 > a written walkthrough, and expected-versus-observed checks. It also includes the AI workflow
-> configuration, recorded time, and known limitations. Please let me know which GitHub account
-> should receive access to the private repository.
+> configuration, recorded time, and known limitations. Repository:
+> https://github.com/Mher-1902/questionnaire-evidence-review
 
 This is a draft only; it has not been sent.

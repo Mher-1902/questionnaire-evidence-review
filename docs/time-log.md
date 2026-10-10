@@ -105,3 +105,16 @@ question cases, and the five original reference cases. Ruff lint/format and diff
 No real provider requests were made. PR/CI publication follows this measured checkpoint;
 its endpoints are available in Git/Actions and the final package manifest. This is additional
 submission work, not a revision of the original measured build interval.
+
+## Public submission access
+
+On 10 October, the candidate explicitly confirmed public repository access. Before the
+visibility change, Gitleaks scanned all refs without finding leaks, and a separate check
+found the current model credential absent from reachable Git objects. GitHub reported
+public visibility after the change; anonymous access to `docs/llm-usage.md` returned HTTP 200.
+
+The observed documentation interval 06:30:07–06:30:51 UTC was 44 seconds through local
+checks, updating the README and handoff for public access. The visibility change preceded
+the first timestamp in this interval. Earlier permission checks and confirmation waiting
+are not represented as continuously active work. Ruff/diff checks passed, no real model
+calls were made, and PR/CI publication follows this checkpoint.
